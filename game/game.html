@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>謎解きゲーム</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body v-cloak @vue:mounted="getProgramList">
+    <header><h1>謎解きゲーム</h1></header>
+
+    <template v-for="ga in game" :key="ga.num">
+      <h2>Q:{{ga.num}}</h2>
+      <img :src="ga.nazoo" width="600" />
+      <p>
+        あなたの回答: <span>{{ga.answ}}</span><br />
+        <label v-if="ga.num === 2"
+          >{{ga.num}}:
+          <select v-model="ga.answ">
+            <option value="みかん">みかん</option>
+            <option value="桃">桃</option>
+            <option value="苺">苺</option>
+          </select>
+        </label>
+        <label v-if="ga.num === 4"
+          >{{ga.num}}:
+          <input
+            type="radio"
+            name="ga.answ"
+            value="アニメ"
+            v-model="ga.answ"
+          />アニメ
+          <input
+            type="radio"
+            name="ga.answ"
+            value="ドラマ"
+            v-model="ga.answ"
+          />ドラマ
+          <input
+            type="radio"
+            name="ga.answ"
+            value="ニュース"
+            v-model="ga.answ"
+          />ニュース
+        </label>
+        <label v-if="ga.num == 1 || ga.num == 3 || ga.num == 5"
+          >{{ga.num}}: <input type="text" v-model="ga.answ"
+        /></label>
+      </p>
+      <br />
+    </template>
+
+    <button @click="mark">結果発表！</button><br /><br />
+    <hr />
+
+    <div v-if="isShow">
+      <div class="kekka" v-if="score < 60">
+        <img :src="data" /><br />
+        <p>{{score}}点/100点...<br />次頑張ろう！<br /></p>
+      </div>
+      <div class="kekka" v-else-if="score >= 60">
+        <img :src="data" /><br />
+        <p>
+          <mark>Congratulations!</mark><br />
+          {{score}}点/100点<br />
+        </p>
+      </div>
+      <br />
+      <a href="../index.html" class="btn">戻る</a>
+      <a href="answer.html" class="btn" v-if="score >= 60">解説</a>
+      <hr />
+    </div>
+
+    <footer>
+      <small>&copy; nazotoki game 2023/10 all rights reserved.</small>
+    </footer>
+    <script src="https://unpkg.com/petite-vue"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

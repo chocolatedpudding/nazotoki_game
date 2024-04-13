@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>謎解きゲーム</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body v-cloak>
+    <header><h1>謎解きゲーム</h1></header>
+
+    <template v-for="an in answer">
+      <h2>Q:{{an.num}}</h2>
+      <img :src="an.nazoo" width="600" />
+      <p>{{an.kai}}</p>
+      <div @click="an.show = !an.show">
+        <p v-if="an.show">▽</p>
+        <p v-else>
+          △<br />
+          {{an.setu}}
+          <img src="../images/taiouhyo.jpg" width="500" v-if="an.num == 3" />
+        </p>
+        <br />
+      </div>
+    </template>
+
+    <a href="../index.html" class="btn">戻る</a>
+    <hr />
+
+    <footer>
+      <small>&copy; nazotoki game 2023/10 all rights reserved.</small>
+    </footer>
+    <script src="https://unpkg.com/petite-vue"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
